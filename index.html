@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tendencias de la Industria de Mascotas: Un Viaje Visual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F8FF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .bg-primary { background-color: #0077B6; }
+        .text-primary-foreground { color: #FFFFFF; }
+        .bg-secondary { background-color: #00B4D8; }
+        .text-secondary-foreground { color: #FFFFFF; }
+        .bg-accent1 { background-color: #90E0EF; }
+        .text-accent1-foreground { color: #003E72; }
+        .bg-card { background-color: #CAF0F8; }
+        .text-default { color: #334155; }
+        .text-heading { color: #003E72; }
+        .kpi-value {
+            font-size: 2.5rem; /* Adjusted for longer MXN values */
+            font-weight: 700;
+            line-height: 1.1;
+            color: #0077B6;
+        }
+        .kpi-label {
+            font-size: 0.9rem; /* Adjusted */
+            color: #475569;
+            margin-top: 0.5rem;
+        }
+        .section-intro-text {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            color: #475569;
+            max-width: 3xl;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .icon-placeholder {
+            font-size: 2.5rem;
+            color: #0077B6;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #0077B6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-default">
+
+    <header class="bg-primary py-8 text-center shadow-lg">
+        <h1 class="text-4xl font-bold text-primary-foreground">🐾 La Floreciente Industria de Mascotas 📈</h1>
+        <p class="text-xl text-primary-foreground mt-2">Un Viaje Visual a Través de las Tendencias Globales y Latinoamericanas</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="hero" class="text-center py-12">
+            <p class="section-intro-text mb-8">La industria global de mascotas está experimentando un crecimiento notable, impulsado por el vínculo cada vez más profundo entre humanos y sus compañeros animales. Las mascotas son vistas cada vez más como miembros de la familia, lo que impulsa la demanda de productos y servicios premium en todo el mundo. Esta infografía explora las tendencias clave, la dinámica del mercado y los cambios sociales que dan forma a este vibrante sector.</p>
+            <div class="bg-white rounded-xl shadow-2xl p-8 inline-block">
+                <div class="kpi-value">&gt;9.67 Billones MXN</div>
+                <div class="kpi-label">Economía Global de Mascotas Proyectada para 2030 (equiv. >$500 Mil Millones USD)</div>
+            </div>
+        </section>
+
+        <section id="global-market" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">El Mercado Global de Mascotas: Una Fuerza Colosal</h2>
+            <p class="section-intro-text text-center mb-10">El mercado mundial de mascotas no solo está creciendo; se está transformando. Varios factores contribuyen a su expansión dinámica, con la humanización de las mascotas a la cabeza. Los dueños están invirtiendo más en el bienestar y la felicidad de sus mascotas que nunca antes.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Proyecciones del Tamaño del Mercado Global (Miles de Millones de MXN)</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">La industria está en una trayectoria ascendente significativa, lo que indica un interés y una inversión sostenidos del consumidor en el cuidado de mascotas. (1 USD = 19.33 MXN)</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="globalMarketSizeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Impulsores Clave del Crecimiento</h3>
+                    <p class="text-sm text-gray-600 mb-6 text-center">Varias tendencias poderosas están impulsando la expansión de la industria global de mascotas.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center bg-white p-4 rounded-md shadow">
+                            <span class="icon-placeholder mr-4">💖</span>
+                            <div>
+                                <h4 class="font-semibold text-lg text-heading">Humanización de las Mascotas</h4>
+                                <p class="text-sm text-gray-600">Las mascotas son vistas cada vez más como miembros de la familia, lo que lleva a un mayor gasto en productos y servicios premium.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center bg-white p-4 rounded-md shadow">
+                            <span class="icon-placeholder mr-4">💰</span>
+                            <div>
+                                <h4 class="font-semibold text-lg text-heading">Aumento de los Ingresos Disponibles</h4>
+                                <p class="text-sm text-gray-600">Mayor capacidad financiera permite a los dueños invertir más en el bienestar de sus mascotas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center bg-white p-4 rounded-md shadow">
+                            <span class="icon-placeholder mr-4">🛡️</span>
+                            <div>
+                                <h4 class="font-semibold text-lg text-heading">Conciencia sobre el Bienestar Animal</h4>
+                                <p class="text-sm text-gray-600">Un mayor enfoque en el trato ético y la salud impulsa la demanda de atención y productos de calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 bg-card rounded-lg shadow-lg p-6 md:col-span-2">
+                <h3 class="text-xl font-semibold text-heading mb-3 text-center">Desglose del Gasto en Mascotas en EE. UU. (2023, en MXN)</h3>
+                <p class="text-sm text-gray-600 mb-4 text-center">Ilustrando las categorías de gasto típicas, el mercado estadounidense ofrece una instantánea de cómo los dueños asignan recursos para sus mascotas. El gasto total en EE. UU. alcanzó aproximadamente 2.84 Billones MXN en 2023 (equiv. $147 Mil Millones USD).</p>
+                <div class="chart-container h-[350px] md:h-[400px]">
+                    <canvas id="usSpendingDonutChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="latam-market" class="py-12 bg-primary text-primary-foreground rounded-xl shadow-2xl my-12 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-center mb-4">Enfoque en Latinoamérica y México: Potencias Emergentes</h2>
+            <p class="section-intro-text text-center mb-10 text-indigo-100">Latinoamérica y México se están convirtiendo en actores cada vez más importantes en la industria global de mascotas. Estos mercados exhiben características únicas y un fuerte potencial de crecimiento, impulsados por tendencias globales similares pero con matices locales. En 2021, México contaba con casi 80 millones de mascotas, y un impresionante 79% de los hogares mexicanos tienen al menos una mascota.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white text-default rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Crecimiento del Mercado de Cuidado de Mascotas en Latinoamérica (Miles de Millones de MXN)</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">La región está preparada para un crecimiento constante, lo que indica un compromiso creciente con el bienestar de las mascotas.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="latamMarketGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white text-default rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">México: Crecimiento del Mercado de Alimentos y Productos para Mascotas (Miles de Millones de MXN)</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">México muestra un crecimiento robusto tanto en alimentos esenciales (valor de mercado de MXN 148.84 Mil Millones en 2023) como en categorías de productos discrecionales para mascotas.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="mexicoMarketGrowthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10">
+                <h3 class="text-2xl font-semibold text-center mb-6">Dinámicas Regionales Únicas en LatAm</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">🐕</span>
+                        <h4 class="font-semibold">Preferencia por Perros</h4>
+                        <p class="text-sm">Mayor tenencia de perros (80% de los dueños de mascotas en México tienen perro) en comparación con gatos.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">🏘️</span>
+                        <h4 class="font-semibold">Animales Callejeros</h4>
+                        <p class="text-sm">Una población significativa influye en las iniciativas de bienestar y las demandas de productos.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">🛒</span>
+                        <h4 class="font-semibold">Estado del Comercio Electrónico</h4>
+                        <p class="text-sm">Las ventas en línea crecen pero aún están por debajo del 10% de penetración; los supermercados dominan.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">🍲</span>
+                        <h4 class="font-semibold">Cambio en las Dietas</h4>
+                        <p class="text-sm">Transición gradual de alimentos humanos a alimentos comerciales para mascotas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="social-glue" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">Las Mascotas como Nuestro Lazo Social</h2>
+            <p class="section-intro-text text-center mb-10">Más allá de la compañía, las mascotas desempeñan un papel vital en la conexión de personas y el fomento de comunidades. Las experiencias compartidas en torno a la tenencia de mascotas a menudo conducen a nuevas amistades y redes sociales más sólidas.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Cómo las Mascotas Nos Conectan: Una Vía Social</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">El viaje de la tenencia de mascotas a menudo conduce a una mayor interacción social a través de diversas actividades diarias y espacios compartidos.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-white rounded shadow">
+                            <span class="text-2xl mr-3 text-primary">🐾</span> <p>Tenencia de Mascotas</p>
+                        </div>
+                        <div class="text-center text-primary font-bold text-2xl">↓</div>
+                        <div class="flex items-center p-3 bg-white rounded shadow">
+                            <span class="text-2xl mr-3 text-primary">🌳</span> <p>Actividades al Aire Libre (Paseos, Visitas a Parques)</p>
+                        </div>
+                        <div class="text-center text-primary font-bold text-2xl">↓</div>
+                        <div class="flex items-center p-3 bg-white rounded shadow">
+                            <span class="text-2xl mr-3 text-primary">💬</span> <p>Mayor Interacción Social</p>
+                        </div>
+                        <div class="text-center text-primary font-bold text-2xl">↓</div>
+                        <div class="flex items-center p-3 bg-white rounded shadow">
+                            <span class="text-2xl mr-3 text-primary">🤝</span> <p>Construcción de Comunidad y Redes Más Fuertes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Escena Social Impulsada por Mascotas en LatAm y México</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">La región cuenta con vibrantes ejemplos de cómo las mascotas unen a las personas en espacios públicos y digitales.</p>
+                    <ul class="space-y-3 list-none">
+                        <li class="flex items-start bg-white p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🇬🇹</span><div><strong>Domingos sin Coches en Guatemala:</strong> Las avenidas se transforman en centros sociales para familias y mascotas.</div></li>
+                        <li class="flex items-start bg-white p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🇲🇽</span><div><strong>Parques de la Ciudad de México (Parque México, España):</strong> Lugares de encuentro populares para dueños de perros.</div></li>
+                        <li class="flex items-start bg-white p-3 rounded shadow"><span class="text-xl mr-2 text-primary">☕</span><div><strong>Cafeterías Pet-Friendly (Condesa, Roma):</strong> Número creciente de establecimientos que dan la bienvenida a las mascotas.</div></li>
+                        <li class="flex items-start bg-white p-3 rounded shadow"><span class="text-xl mr-2 text-primary">💻</span><div><strong>Comunidades Digitales:</strong> Grupos en línea fomentan conexiones y reuniones locales para amantes de las mascotas.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="pet-spending" class="py-12 bg-secondary text-secondary-foreground rounded-xl shadow-2xl my-12 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-center mb-4">El Precio del Amor: Hábitos de Gasto en Mascotas</h2>
+            <p class="section-intro-text text-center mb-10 text-indigo-100">Comprender cómo y por qué los dueños gastan en sus mascotas proporciona información crucial sobre las demandas del mercado. Si bien las tendencias globales muestran una alta inversión, los patrones regionales en América Latina y México reflejan realidades y prioridades económicas locales.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white text-default rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">Gasto en Mascotas en EE. UU. por Categoría (2023, Miles de Millones de MXN)</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">La comida y la atención veterinaria constituyen las mayores proporciones de gasto en el mercado maduro de EE. UU. (1 USD = 19.33 MXN)</p>
+                    <div class="chart-container h-[350px] md:h-[400px]">
+                        <canvas id="usSpendingBarChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white text-default rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-heading mb-3 text-center">México: Niveles de Gasto Trimestral en Alimentos para Mascotas</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Una parte significativa de los dueños de mascotas mexicanos gestiona sus presupuestos de alimentos para mascotas dentro de rangos moderados.</p>
+                    <div class="chart-container h-[300px] md:h-[350px]">
+                        <canvas id="mexicoPetFoodSpendingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-10">
+                <h3 class="text-2xl font-semibold text-center mb-6">Factores Clave que Influyen en el Gasto</h3>
+                <p class="text-md text-indigo-100 mb-4 text-center">En México, el 71% de los dueños de mascotas gastan hasta MX$999 trimestralmente en productos de higiene y accesorios. El gasto mensual en productos para el cuidado de mascotas es inferior a MX$1,160 para el 45% de los dueños.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">👨‍👩‍👧‍👦</span>
+                        <h4 class="font-semibold">Humanización</h4>
+                        <p class="text-sm">Ver a las mascotas como familia impulsa el gasto en calidad y cuidado.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">📈</span>
+                        <h4 class="font-semibold">Niveles de Ingresos</h4>
+                        <p class="text-sm">Un mayor ingreso disponible a menudo se traduce en un mayor gasto en mascotas.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">❤️‍🩹</span>
+                        <h4 class="font-semibold">Conciencia de Salud</h4>
+                        <p class="text-sm">El enfoque en el bienestar aumenta la demanda de atención veterinaria y alimentos nutritivos.</p>
+                    </div>
+                    <div class="bg-accent1 text-accent1-foreground p-4 rounded-lg shadow text-center">
+                        <span class="icon-placeholder block mb-2">📉</span>
+                        <h4 class="font-semibold">Factores Económicos</h4>
+                        <p class="text-sm">La inflación puede llevar a cambios hacia opciones más asequibles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="pet-ownership-demographics" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">Demografía de la Tenencia de Mascotas</h2>
+            <p class="section-intro-text text-center mb-10">La tenencia de mascotas varía significativamente entre las diferentes generaciones, reflejando cambios en el estilo de vida y las prioridades. A continuación, se muestra un desglose de la tenencia de mascotas por generación en EE. UU. (datos de APPA 2025), un mercado maduro que a menudo sirve como referencia de tendencias.</p>
+            <div class="bg-card rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+                <h3 class="text-xl font-semibold text-heading mb-3 text-center">Porcentaje de Dueños de Mascotas en EE. UU. por Generación</h3>
+                <p class="text-sm text-gray-600 mb-4 text-center">Los Millennials constituyen el grupo más grande de dueños de mascotas, con la Generación Z mostrando un crecimiento notable.</p>
+                <div class="chart-container h-[300px] md:h-[350px]">
+                    <canvas id="petOwnershipByGenerationChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="innovation" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">Patas y Píxeles: Innovación en el Cuidado de Mascotas</h2>
+            <p class="section-intro-text text-center mb-10">La tecnología y la innovación están revolucionando la industria del cuidado de mascotas, ofreciendo soluciones sofisticadas para la salud, nutrición, entretenimiento y bienestar general. Si bien los mercados globales lideran, Latinoamérica está adoptando cada vez más estos avances.</p>
+            <h3 class="text-2xl font-semibold text-heading text-center mb-6">Principales Innovaciones Globales en el Cuidado de Mascotas</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">🤖</span>
+                    <h4 class="font-semibold text-lg text-heading">Herramientas con IA</h4>
+                    <p class="text-sm text-gray-600">Para diagnósticos, análisis de comportamiento y nutrición personalizada.</p>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">⌚</span>
+                    <h4 class="font-semibold text-lg text-heading">Dispositivos Inteligentes</h4>
+                    <p class="text-sm text-gray-600">Seguimiento en tiempo real de signos vitales, actividad y patrones de sueño.</p>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">🍽️</span>
+                    <h4 class="font-semibold text-lg text-heading">Comederos Automatizados</h4>
+                    <p class="text-sm text-gray-600">Planes de comidas personalizados y monitoreo del consumo.</p>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">🩺</span>
+                    <h4 class="font-semibold text-lg text-heading">Telemedicina</h4>
+                    <p class="text-sm text-gray-600">Consultas veterinarias virtuales convenientes y seguimiento.</p>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">🍃</span>
+                    <h4 class="font-semibold text-lg text-heading">Productos Sostenibles</h4>
+                    <p class="text-sm text-gray-600">Alimentos, bolsas de residuos y juguetes ecológicos ganan popularidad.</p>
+                </div>
+                <div class="bg-card rounded-lg shadow-lg p-6 text-center">
+                    <span class="icon-placeholder block mb-2">🏨</span>
+                    <h4 class="font-semibold text-lg text-heading">Hoteles de Lujo para Mascotas</h4>
+                    <p class="text-sm text-gray-600">Habitaciones con clima controlado y sistemas de alimentación automatizados.</p>
+                </div>
+            </div>
+            <p class="text-md text-gray-700 mt-8 text-center italic">La adopción de estas tecnologías en Latinoamérica está creciendo, impulsada por la demanda de productos premium y la tendencia continua de humanización de las mascotas.</p>
+        </section>
+
+        <section id="societal-impact" class="py-12 bg-primary text-primary-foreground rounded-xl shadow-2xl my-12 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-center mb-4">Un Mundo Inclusivo para Mascotas: Cambios Sociales</h2>
+            <p class="section-intro-text text-center mb-10 text-indigo-100">La creciente importancia de las mascotas está remodelando las normas sociales y la infraestructura a nivel global. Latinoamérica participa activamente en esta evolución, creando entornos más acogedores para las mascotas y sus dueños.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">La Nueva Normalidad: Espacios Pet-Friendly Globalmente</h3>
+                    <ul class="space-y-3 list-none">
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🍽️</span><div><strong>Restaurantes y Cafeterías:</strong> Más establecimientos ofrecen asientos aptos para mascotas.</div></li>
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🏨</span><div><strong>Hoteles y Alojamientos:</strong> Opciones crecientes para viajeros con mascotas.</div></li>
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🏢</span><div><strong>Lugares de Trabajo:</strong> Algunas empresas adoptan políticas pet-friendly para el bienestar de los empleados.</div></li>
+                         <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">✈️</span><div><strong>Viajes:</strong> Servicios y consideraciones mejorados para mascotas durante los viajes.</div></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Latinoamérica Adopta Mascotas en la Vida Pública</h3>
+                     <ul class="space-y-3 list-none">
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🇲🇽</span><div><strong>Restaurantes en la Ciudad de México:</strong> Un aumento en restaurantes que dan la bienvenida a las mascotas, especialmente en áreas como Condesa.</div></li>
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">💀</span><div><strong>Integración Cultural:</strong> Mascotas incluidas en tradiciones como las celebraciones del Día de Muertos.</div></li>
+                        <li class="flex items-start bg-white text-default p-3 rounded shadow"><span class="text-xl mr-2 text-primary">🌳</span><div><strong>Parques para Mascotas Designados:</strong> Ciudades como Buenos Aires y la Ciudad de México ofrecen espacios dedicados.</div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-10 text-center">
+                <h3 class="text-2xl font-semibold mb-4">El Auge de los Negocios Centrados en Mascotas</h3>
+                <p class="text-lg text-indigo-100 mb-6">Un próspero ecosistema de servicios atiende las diversas necesidades de los dueños de mascotas modernos.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-accent1 text-accent1-foreground py-2 px-4 rounded-full shadow">Salones de Peluquería</span>
+                    <span class="bg-accent1 text-accent1-foreground py-2 px-4 rounded-full shadow">Guarderías para Perros</span>
+                    <span class="bg-accent1 text-accent1-foreground py-2 px-4 rounded-full shadow">Hoteles para Mascotas</span>
+                    <span class="bg-accent1 text-accent1-foreground py-2 px-4 rounded-full shadow">Boutiques Especializadas</span>
+                    <span class="bg-accent1 text-accent1-foreground py-2 px-4 rounded-full shadow">Minoristas en Línea</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="gemini-feature" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">✨ Pregúntale al Experto en la Industria de Mascotas ✨</h2>
+            <p class="section-intro-text text-center mb-10">¿Tienes preguntas sobre el futuro del mercado de mascotas, las últimas innovaciones o cómo las tendencias globales impactan tu región? Nuestro experto en IA está aquí para ayudarte a explorar más a fondo.</p>
+            <div class="bg-card rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+                <div class="mb-4">
+                    <label for="petIndustryQuestion" class="block text-lg font-semibold text-heading mb-2">Tu pregunta:</label>
+                    <textarea id="petIndustryQuestion" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" rows="4" placeholder="Ej: ¿Cuáles son las oportunidades de inversión en el cuidado de mascotas en México?"></textarea>
+                </div>
+                <div class="flex items-center justify-center mb-4">
+                    <button id="askGeminiBtn" class="bg-primary text-primary-foreground px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        Preguntar al Experto ✨
+                    </button>
+                    <div id="loadingSpinner" class="loading-spinner ml-4"></div>
+                </div>
+                <div id="geminiResponse" class="bg-white p-4 rounded-md shadow-inner min-h-[100px] text-gray-700">
+                    <p class="text-center text-gray-500">La respuesta aparecerá aquí...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="business-idea-generator" class="py-12 bg-secondary text-secondary-foreground rounded-xl shadow-2xl my-12 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-center mb-4">✨ Generador de Ideas de Negocio para Mascotas ✨</h2>
+            <p class="section-intro-text text-center mb-10 text-indigo-100">Explora nuevas oportunidades en el mercado de mascotas. Describe tus preferencias y nuestro experto en IA te sugerirá ideas de negocio innovadoras.</p>
+            <div class="bg-white text-default rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="petType" class="block text-lg font-semibold text-heading mb-2">Tipo de Mascota:</label>
+                        <select id="petType" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="Perro">Perro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Pez">Pez</option>
+                            <option value="Ave">Ave</option>
+                            <option value="Roedor">Roedor</option>
+                            <option value="Cualquiera">Cualquiera</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="locationType" class="block text-lg font-semibold text-heading mb-2">Tipo de Ubicación:</label>
+                        <select id="locationType" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="Urbana">Urbana</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Suburbana">Suburbana</option>
+                            <option value="Turística">Turística</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="budgetLevel" class="block text-lg font-semibold text-heading mb-2">Nivel de Presupuesto:</label>
+                    <select id="budgetLevel" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option value="Bajo">Bajo</option>
+                        <option value="Medio">Medio</option>
+                        <option value="Alto">Alto</option>
+                        <option value="Muy Alto">Muy Alto</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-center mb-4">
+                    <button id="generateBusinessIdeaBtn" class="bg-primary text-primary-foreground px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        Generar Idea ✨
+                    </button>
+                    <div id="loadingBusinessIdeaSpinner" class="loading-spinner ml-4"></div>
+                </div>
+                <div id="businessIdeaResponse" class="bg-white p-4 rounded-md shadow-inner min-h-[100px] text-gray-700">
+                    <p class="text-center text-gray-500">Tu idea de negocio aparecerá aquí...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="product-trend-analysis" class="py-12">
+            <h2 class="text-3xl font-bold text-heading text-center mb-4">✨ Análisis de Tendencias de Productos para Mascotas ✨</h2>
+            <p class="section-intro-text text-center mb-10">Obtén un análisis rápido sobre las tendencias actuales y futuras de un producto específico en la industria de mascotas.</p>
+            <div class="bg-card rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+                <div class="mb-4">
+                    <label for="productCategory" class="block text-lg font-semibold text-heading mb-2">Categoría de Producto:</label>
+                    <input type="text" id="productCategory" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ej: Alimentos orgánicos, Juguetes interactivos, Seguros para mascotas">
+                </div>
+                <div class="flex items-center justify-center mb-4">
+                    <button id="analyzeProductTrendBtn" class="bg-primary text-primary-foreground px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        Analizar Tendencia ✨
+                    </button>
+                    <div id="loadingProductTrendSpinner" class="loading-spinner ml-4"></div>
+                </div>
+                <div id="productTrendResponse" class="bg-white p-4 rounded-md shadow-inner min-h-[100px] text-gray-700">
+                    <p class="text-center text-gray-500">El análisis de la tendencia del producto aparecerá aquí...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="text-center py-12">
+            <h2 class="text-3xl font-bold text-heading mb-4">¡Un Futuro Brillante para Nuestros Amigos Peludos!</h2>
+            <p class="section-intro-text">La industria de mascotas está preparada para una continua expansión global, con Latinoamérica y México desempeñando un papel cada vez más vital. La poderosa tendencia de la humanización de las mascotas, combinada con los avances tecnológicos y las normas sociales en evolución que abrazan a las mascotas, apunta hacia un futuro lleno de oportunidades. Las empresas que priorizan la calidad, la innovación y la conveniencia, al tiempo que comprenden y se adaptan a los matices regionales, estarán bien posicionadas para prosperar en este mercado dinámico y conmovedor.</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 bg-gray-800 text-gray-300 text-sm">
+        Infografía basada en el Informe de Investigación Profunda: Tendencias Globales y Latinoamericanas de la Industria de Mascotas.
+        Las cifras se presentan en Pesos Mexicanos (MXN) utilizando una tasa de conversión de 1 USD = 19.33 MXN, a menos que se indique lo contrario. Los puntos de datos son ilustrativos.
+    </footer>
+
+    <script>
+        const primaryColor = '#0077B6';
+        const secondaryColor = '#00B4D8';
+        const accent1Color = '#90E0EF';
+        const accent2Color = '#CAF0F8';
+        const textHeadingColor = '#003E72';
+        const exchangeRateUSDMXN = 19.33;
+
+        function wrapLabel(str, maxWidth) {
+            if (!str) return '';
+            if (str.length <= maxWidth) return str;
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + words[i].length + 1 <= maxWidth) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: textHeadingColor,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback,
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2);
+                            }
+                            return label;
+                        }
+                    },
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 12 },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#FFFFFF',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { 
+                        color: textHeadingColor,
+                        font: { size: 12 }
+                    },
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: {
+                    ticks: { 
+                        color: textHeadingColor,
+                        font: { size: 12 },
+                        callback: function(value, index, values) {
+                            const label = this.getLabelForValue(value);
+                            return wrapLabel(label, 10);
+                        }
+                    },
+                    grid: { display: false }
+                }
+            }
+        };
+        
+        const defaultPieDonutOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: textHeadingColor,
+                        font: { size: 12 },
+                        padding: 15,
+                        usePointStyle: true,
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback,
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                if (context.chart.id === 'usSpendingDonutChart') {
+                                    label += context.parsed.toFixed(2) + ' Mil Millones MXN';
+                                } else if (context.chart.id === 'mexicoPetFoodSpendingChart') {
+                                    label += context.parsed + '%';
+                                } else {
+                                    label += context.parsed;
+                                }
+                            }
+                            return label;
+                        }
+                    },
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 12 },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#FFFFFF',
+                }
+            }
+        };
+
+
+        new Chart(document.getElementById('globalMarketSizeChart'), {
+            type: 'line',
+            data: {
+                labels: ['2023', '2029', '2030', '2032'],
+                datasets: [{
+                    label: 'Tamaño del Mercado (Miles de Millones de MXN)',
+                    data: [246.66 * exchangeRateUSDMXN, 340.71 * exchangeRateUSDMXN, 500 * exchangeRateUSDMXN, 427.75 * exchangeRateUSDMXN],
+                    borderColor: primaryColor,
+                    backgroundColor: 'rgba(0, 119, 182, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        new Chart(document.getElementById('usSpendingDonutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Alimentos y Golosinas', 'Atención Veterinaria y Productos', 'Suministros y Medicamentos OTC', 'Otros Servicios'],
+                datasets: [{
+                    label: 'Gasto en Mascotas en EE. UU. 2023 (Miles de Millones MXN)',
+                    data: [64.4 * exchangeRateUSDMXN, 38.3 * exchangeRateUSDMXN, 32.0 * exchangeRateUSDMXN, 12.3 * exchangeRateUSDMXN],
+                    backgroundColor: [primaryColor, secondaryColor, accent1Color, '#48CAE4'],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 2
+                }]
+            },
+            options: defaultPieDonutOptions
+        });
+
+        new Chart(document.getElementById('latamMarketGrowthChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2030 (Proyectado)'],
+                datasets: [{
+                    label: 'Tamaño del Mercado (Miles de Millones de MXN)',
+                    data: [15.96 * exchangeRateUSDMXN, 23.38 * exchangeRateUSDMXN],
+                    backgroundColor: [secondaryColor, primaryColor],
+                }]
+            },
+            options: defaultChartOptions
+        });
+        
+        new Chart(document.getElementById('mexicoMarketGrowthChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Alimentos (2024)', 'Alimentos (2029)', 'Productos (2024)', 'Productos (2030)'],
+                datasets: [{
+                    label: 'Tamaño del Mercado (Miles de Millones de MXN)',
+                    data: [3.29 * exchangeRateUSDMXN, 4.58 * exchangeRateUSDMXN, 0.8986 * exchangeRateUSDMXN, 1.5575 * exchangeRateUSDMXN],
+                    backgroundColor: [primaryColor, primaryColor, secondaryColor, secondaryColor],
+                }]
+            },
+            options: { ...defaultChartOptions, scales: {...defaultChartOptions.scales, x: {...defaultChartOptions.scales.x, ticks: {...defaultChartOptions.scales.x.ticks, callback: function(value, index, values) {
+                const label = this.getLabelForValue(value);
+                return wrapLabel(label, 16); 
+            }}}}}
+        });
+
+        new Chart(document.getElementById('usSpendingBarChart'), {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('Alimentos y Golosinas',16), wrapLabel('Atención Veterinaria y Venta de Productos',16), wrapLabel('Suministros, Animales Vivos y Medicamentos OTC',16), wrapLabel('Otros Servicios (Peluquería, Seguros, etc.)',16)],
+                datasets: [{
+                    label: 'Gasto (Miles de Millones de MXN)',
+                    data: [64.4 * exchangeRateUSDMXN, 38.3 * exchangeRateUSDMXN, 32.0 * exchangeRateUSDMXN, 12.3 * exchangeRateUSDMXN],
+                    backgroundColor: [primaryColor, secondaryColor, accent1Color, '#48CAE4'],
+                }]
+            },
+            options: defaultChartOptions
+        });
+        
+        new Chart(document.getElementById('mexicoPetFoodSpendingChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Hasta MX$999', 'MX$1,000 - MX$2,999', 'Más de MX$2,999'],
+                datasets: [{
+                    label: 'Gasto Trimestral en Alimentos para Mascotas (%)',
+                    data: [43, 41, 16], 
+                    backgroundColor: [primaryColor, secondaryColor, accent1Color],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 2
+                }]
+            },
+            options: defaultPieDonutOptions
+        });
+
+        new Chart(document.getElementById('petOwnershipByGenerationChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Millennials', 'Gen X', 'Baby Boomers', 'Gen Z', 'Generación Silenciosa'],
+                datasets: [{
+                    label: 'Porcentaje de Dueños de Mascotas (EE.UU.)',
+                    data: [30, 25, 25, 20, 2], 
+                    backgroundColor: [primaryColor, secondaryColor, accent1Color, '#48CAE4', '#A0CED9'],
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const askGeminiBtn = document.getElementById('askGeminiBtn');
+            const petIndustryQuestion = document.getElementById('petIndustryQuestion');
+            const geminiResponse = document.getElementById('geminiResponse');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            const generateBusinessIdeaBtn = document.getElementById('generateBusinessIdeaBtn');
+            const petType = document.getElementById('petType');
+            const locationType = document.getElementById('locationType');
+            const budgetLevel = document.getElementById('budgetLevel');
+            const businessIdeaResponse = document.getElementById('businessIdeaResponse');
+            const loadingBusinessIdeaSpinner = document.getElementById('loadingBusinessIdeaSpinner');
+
+            const analyzeProductTrendBtn = document.getElementById('analyzeProductTrendBtn');
+            const productCategory = document.getElementById('productCategory');
+            const productTrendResponse = document.getElementById('productTrendResponse');
+            const loadingProductTrendSpinner = document.getElementById('loadingProductTrendSpinner');
+
+            async function callGemini(prompt, responseElement, spinnerElement, buttonElement) {
+                if (!prompt) {
+                    responseElement.innerHTML = '<p class="text-red-500 text-center">Por favor, ingresa la información requerida.</p>';
+                    return;
+                }
+
+                spinnerElement.style.display = 'block';
+                buttonElement.disabled = true;
+                responseElement.innerHTML = '<p class="text-center text-gray-500">Generando respuesta...</p>';
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        responseElement.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
+                    } else {
+                        responseElement.innerHTML = '<p class="text-red-500 text-center">No se pudo obtener una respuesta. Por favor, inténtalo de nuevo.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error al llamar a la API de Gemini:', error);
+                    responseElement.innerHTML = '<p class="text-red-500 text-center">Ocurrió un error al procesar tu solicitud. Inténtalo más tarde.</p>';
+                } finally {
+                    spinnerElement.style.display = 'none';
+                    buttonElement.disabled = false;
+                }
+            }
+
+            askGeminiBtn.addEventListener('click', async () => {
+                const promptText = petIndustryQuestion.value.trim();
+                const fullPrompt = `Actúa como un experto en la industria global de mascotas. Responde a la siguiente pregunta de forma concisa y profesional, basándote en las tendencias de la industria y la dinámica del mercado: "${promptText}"`;
+                await callGemini(fullPrompt, geminiResponse, loadingSpinner, askGeminiBtn);
+            });
+
+            generateBusinessIdeaBtn.addEventListener('click', async () => {
+                const selectedPetType = petType.value;
+                const selectedLocationType = locationType.value;
+                const selectedBudgetLevel = budgetLevel.value;
+                const businessPrompt = `Genera una idea de negocio innovadora y de nicho en la industria de mascotas, considerando el tipo de mascota: ${selectedPetType}, la ubicación: ${selectedLocationType}, y un nivel de presupuesto: ${selectedBudgetLevel}. Describe brevemente la idea y su propuesta de valor en español.`;
+                await callGemini(businessPrompt, businessIdeaResponse, loadingBusinessIdeaSpinner, generateBusinessIdeaBtn);
+            });
+
+            analyzeProductTrendBtn.addEventListener('click', async () => {
+                const productCat = productCategory.value.trim();
+                const productTrendPrompt = `Proporciona un breve análisis de las tendencias actuales y futuras para la categoría de producto de mascotas: "${productCat}". Incluye su relevancia en el mercado actual y potencial de crecimiento, en español.`;
+                await callGemini(productTrendPrompt, productTrendResponse, loadingProductTrendSpinner, analyzeProductTrendBtn);
+            });
+        });
+    </script>
+</body>
+</html>
